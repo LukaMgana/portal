@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-5 text-white">
+    <div class="jumbotron bg-dark shadow-sm p-5 mt-5 text-white">
+        <div class="row">
+            <div class="col-md-4"> 
+                
+                {% if request.user.farmer.profile_image %}
+                <img class="w-60 img-thumbnail" src="{{request.user.farmer.profile_image.url}}" alt="farmer profile image">
+                {% else %}
+                <img class="img-thumbnail" src="../../static/assets/img/04.jpg" width="100%" alt="">
+                <input type="file" id='prof_img' name="user_profile" value="{{request.user.farmer.profile_image.value}}">
+                {% endif %}
+                    
+                    
+            </div>
+            <div class="col-md-7 ml-4"> 
+                <ipnut class="pt-3 mt-5"><input type="text" name="{{request.user.farmer.full_name.html_name}}" value="{{request.user.farmer.value}}" id="">
+                <hr style="border-top:1px solid gray; opacity: 0.34; margin-left:0" class="w-75">
+                <p>Reigistered on {{request.user.farmer.full_name}}</p>
+            </div>
+        </div>
+        <hr style="border-top:2px solid rgba(228, 228, 238, 0.808); opacity: .3" class="w-100">
+        <h4 class="text-white-75">Personal Informations</h4>
+        <div class="row pl-2 d-flex">
+            <div class="col">
+                <p>First name: <span class="lead"><input type="text" name="{{request.user.farmer.first_name.name}}" value="{{request.user.farmer.first_name.value}}" id=""></span></p> 
+            </div>
+            <div class="col">
+                <p>Last name: <span class="lead"><input type="text" name="{{request.user.farmer.last_name.name}}" value="{{request.user.farmer.last_name.value}}" id=""></span></p> 
+            </div>
+            <div class="col">
+                <p>Gender: <span class="lead"><input type="text" name="{{request.user.farmer.gender.name}}" value="{{request.user.farmer.gender.value}}" id=""></span></p> 
+            </div>
+        </div>
+        <h4 class="text-white-75">Contacts Informations</h4>
+        <div class="row pl-2 d-flex">
+            <div class="col">
+                <p>Email:&nbsp; <span class="lead"><input type="text" name="{{request.user.farmer.email.name}}" value="{{request.user.farmer.email.value}}" id=""></span></p> 
+            </div>
+            <div class="col">
+                <p>Phone: <span class="lead"><input type="text" name="{{request.user.farmer.phone.name}}" value="{{request.user.farmer.phone.value}}" id=""></span></p> 
+            </div>
+            <div class="col">
+                <p>Location: <span class="lead"><input type="text" name="{{request.user.farmer.location.name}}" value="{{request.user.farmer.location.value}}" id=""></span></p> 
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+        <p>© Company 2017</p>
+    </footer>
+
+
+        {% endblock content %}

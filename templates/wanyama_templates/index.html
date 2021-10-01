@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+        <div class="container mt-5 text-white">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong>Info!</strong>{{message}}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="jumbotron bg-dark shadow-sm mt-5 text-white">
+                <p class="justify-align-start">
+                    
+                        <strong class="ml-0"><a class="text-white decoration-none" href="{% url 'wanyama:index' %}">Livestock Lists</a><span class="ml-1 p-2 badge badge-success badge-pill">({{animal_total}})</span></strong> 
+                        <span class="ml-5">
+                            {% if with_no_tag %}
+                            <a href="{% url 'wanyama:all-tag' %}"
+                            class="btn btn-sm btn-success ml-5">
+                            Geneate tags for all</a>
+                        </span>
+                            {% endif %} 
+                            
+                            <span class="float-right"><i class="fa fa-plus"></i><a role="button" class="btn btn-sm btn-info" href="{% url 'wanyama:add-cattle' %}">Add Livestock</a></span>
+                        </p>
+                            
+                
+                            <table class="table w-100 text-white"> 
+                    <thead>
+                        <tr> 
+                            <th>S/N</th> 
+                            <th>Names</th> 
+                            <th>Gender</th> 
+                            <th>Category</th> 
+                            <th>Status</th> 
+                            <th>Actions</th> 
+                        </tr>                         
+                    </thead>
+                    <tbody>
+                        {% for cattle in cattles %}
+                        <tr> 
+                            <th scope="row">{{forloop.counter}}</th> 
+                            <td><a class="text-white" href="{% url 'wanyama:detailed' cattle.pk %}">{{cattle.livestock_name}}</a></td> 
+                            <td><a class="text-white" href="{% url 'wanyama:genderwise' cattle.gender %}">{{cattle.gender}}</a></td> 
+                            <td><a class="text-white" href="{% url 'wanyama:category' cattle.cartegory %}">{{cattle.cartegory}}</a></td> 
+                            <td><a class="text-white" href="{% url 'wanyama:statuswise' cattle.status %}">{{cattle.status}}</a></td> 
+
+                            <td>
+                                    <a href="{% url 'wanyama:edit' cattle.pk %}" class="badge px-2 badge-secondary">Edit</a>
+                                    <a href="{% url 'wanyama:delete' cattle.pk %}" class="badge px-2 badge-danger">Delete</a>
+                            </td> 
+                        </tr>                         
+                              
+                   {% endfor %}                            
+                    </tbody>                     
+                </table>
+            </div>
+        </div>
+{% endblock content %}

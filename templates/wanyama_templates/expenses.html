@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+        <div class="container mt-5 text-white">
+            <div class="jumbotron bg-dark shadow-sm mt-5 text-white">
+                <p class="d-flex justify-content-between align-items-center">
+                    
+                        <a class="text-white decoration-none" href="{% url 'wanyama:expenses' %}">Expenses Lists</a> 
+                    <span class="text-warning"><a class="text-warning" href="{% url 'wanyama:only' 'purchases' %}">Purchases</a> :&nbsp; Tsh.{{total_purchases}} /-</span>
+                    <span class="text-white"><a class="text-white" href="{% url 'wanyama:only' 'sales' %}">Sales</a> :&nbsp; Tsh.{{total_sales}} /-</span>
+                    <span class="text-white-50"><a class="text-white-50" href="{% url 'wanyama:only' 'others' %}">Others</a> :&nbsp; Tsh.{{total_others}} /-</span>
+
+                <span><i class="fa fa-plus"></i><a role="button" class="btn btn-sm btn-info" href="{% url 'wanyama:add-expenses' %}">Add Expense | Income</a></span> </p>
+                <table class="table w-100 text-white"> 
+                    <thead>
+                        <tr> 
+                            <th>S/N</th> 
+                            <th>Amount(Tsh.)</th> 
+                            <th>Desription</th> 
+                            <th>Due date</th> 
+                            <th>Source</th> 
+                            <th>Actions</th> 
+                        </tr>                         
+                    </thead>
+                    <tbody>
+                        {% if ie_object %}
+                        {% for ie in ie_object %}
+                        <tr> 
+                            <th scope="row">{{forloop.counter}}</th> 
+                            <td>{{ie.amount}}</td> 
+                            <td><a>{{ie.descriptions}}</a></td> 
+                            <td><a>{{ie.due_date}}</a></td> 
+                            <td><a  class="text-{% if ie.ei_type.lower == 'purchases' %}warning
+                                {% elif ie.ei_type.lower == 'sales' %}white
+                                {% else %}white-50{% endif %}"  href="{% url 'wanyama:only' ie.ei_type.lower     %}">{{ie.ei_type}}</a></td> 
+
+                            <td>
+                                    <a href="{% url 'wanyama:edit-expenses' ie.pk %}" class="badge px-2 badge-secondary">Edit</a>
+                                    <a href="{% url 'wanyama:delete-expenses' ie.pk %}" class="badge px-2 badge-danger">Delete</a>
+                            </td> 
+                        </tr>                         
+                              
+                   {% endfor %} 
+                   {% else %}    
+                   <td colspan="5" class="text-center text-white pt-5">no record(s) founds</td>
+                   {% endif %}    
+                    </tbody>                     
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block staticlinks %}
+
+{% endblock staticlinks %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="form-signin col-6"  style="margin-top:8em;">
+    {% if form.non_field_errors %}
+    {% for field in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{field}}
+    </div>
+    {% endfor %}    
+    {% endif %} 
+    
+
+<form method="POST" style="position:fixed;" class="form-signin bg-white p-3 mb-1 shadow-sm border border-0 border-light rounded"  >
+    {% csrf_token %}
+    <h3 class="text-center mt-2 mb-4">
+        Farmer Login
+    </h3>
+    <div class="form-group">
+        <input class="form-control" type="text" name="{{form.username.html_name}}" id="" placeholder="{{form.username.label}}">
+    </div>
+
+<div class="form-group">
+    <input class="form-control" type="password" name="{{form.password.html_name}}" id="" placeholder="{{form.password.label}}">
+</div>    
+
+    
+    <div>
+    <button class="btn btn-md my-3 btn-primary btn-block" type="submit">Sign in</button>
+    <p class="text-center">Have no account? &nbsp;<a href="{% url 'farmer:register' %}" class="text-info"> Register here</a></p>
+    </div>
+</form>
+</div>
+{% endblock content %}
+

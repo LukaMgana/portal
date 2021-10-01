@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="card p-5 text-white rounded bg-dark" style="margin-top: 5em; margin-bottom: 5em">
+  <form action=""  enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      <div class="row">
+      <div class="form-group col-6">
+        <input type="text" value="{{form.livestock_name.value}}" name="{{form.livestock_name.name}}" id="" class="form-control" placeholder="{{form.livestock_name.label}}" aria-describedby="helpId">
+      </div>
+      <div class="form-group col-6">
+          <input type="text" value="{{form.location.value}}" name="{{form.location.name}}" id="" class="form-control" placeholder="Location for cattle" aria-describedby="helpId">
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="form-group col-4">
+              {{form.gender}}
+          </div>
+          <div class="form-group col-4">
+            {{form.birth_date}}
+          </div>
+            <div class="form-group col-4">
+                {{form.cartegory}}                  
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="form-group col-4">
+                <input type="number"  value="{{form.weight.value}}"  name="{{form.weight.name}}" id="" class="form-control" placeholder="cattle weight" aria-describedby="helpId">
+              </div>
+              <div class="form-group col-4">
+                  {{form.status}}
+              </div>
+                
+        <div class="form-group col-4">
+            <label for="cattle_image" class="form-control" >change Image</label>
+          <input type="file" value="{{form.ls_image.value}}" name="{{form.ls_image.name}}" id="cattle_image" hidden placeholder="Image" aria-describedby="helpId">
+      <small class="form-text text-white-50">
+        {% if form.ls_image.value %}
+        {{form.ls_image.value}}
+        {% else %}
+       <p class="ml-3 pb-0 mb-0"> select image </p>
+        {% endif %}
+      </small>  
+      </div>
+              </div>
+      <button type="submit" class="btn btn-md btn-primary">Update animal info</button>
+      <button type="cancel" class="btn btn-md btn-warning">Cancel</button>
+  </form>
+</div>
+{% endblock content %}
+    

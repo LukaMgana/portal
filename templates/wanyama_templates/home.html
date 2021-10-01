@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<center>
+        <div class="jumbotron mt-5">
+            <h2 class="display-4">Livestock Information Management System</h2>
+        
+            <p class="lead pt-5">
+                <a class="btn btn-md btn-primary" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-md btn-secondary" href="{% url 'farmer:register' %}">Register</a>
+            </p>
+        </div>
+</center>
+{% endblock content %}

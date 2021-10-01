@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5 text-white">
+
+    
+    <div class="jumbotron bg-dark shadow-sm mt-5 text-white">
+        <div class="row">
+            <div class="w-100 p-3 rounded" style='border: 1px solid rgba(255,255,255, .5); padding-top: 0px;'>
+                <h1 style="color: #ffc987;">Limos system compress informations</h1>
+            </div>
+        </div>
+
+
+        
+                 <!-- <img src="{{object.tag.tag.url}}" class="img-fluid card-img-right img-responsive" width="200vw" height="400px" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;"> -->
+                   
+
+        <div class="row mt-5">
+            <div class="col-md-4 ml-3 ">
+                {% if object.tag.tag %}
+                <img class="img-thumbnail" style='width:80%' src="{{object.tag.tag.url}}" alt="image-for-{{object.cattle_name}}" style="border-radius: 100px;" >
+
+                <div class='pt-3'>
+                    <a class='btn btn-sm btn-success'>Download Tag</a>
+                    <a class='btn btn-sm btn-success'>Print Tag</a>
+                </div>
+                {% else %}
+                <center>
+                    <form action="{% url 'wanyama:generate-tag' object.pk %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn mt-5 p-1 btn-md btn-secondary" type="submit">
+                            Generate Tag
+                        </button>
+                    </form>
+                </center>
+             {% endif %}
+            </div>
+            <div class="col-md-5">
+                <div class="row ml-1 pl-1" style='border-left:1px solid rgba(255,255,255, .3);'>
+                    <div class="col-md-12">
+                        <p class="lead">Livestock:&nbsp; {{object.livestock_name.capitalize}}</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead">Date of Birth:&nbsp; {{object.birth_date}}</p> 
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead">Gender: {{object.gender.capitalize}}</p> 
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead">Health: {{object.health.status.capitalize}}</p> 
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead">Status: {{object.status.capitalize}}</p> 
+                    </div>
+                    <div class="col-md-12">
+                        <p class="lead">Weight: {{object.weight}} Kg(s).</p> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <img width="220" class="rounded" src="{{object.ls_image.url }}" alt="">
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <center>&copy; &nbsp; S.E. Final Year Project</center>
+    </footer>
+</div>
+        {% endblock content %}

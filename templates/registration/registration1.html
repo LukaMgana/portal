@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div style="margin-top: 5em" class="p-4 rounded text-white">
+    <div class="container">
+        <div class="card bg-dark p-5">
+<form action="" method="post">
+    {% csrf_token %}
+    <p class="lead">
+        Farmer Registration Form
+    </p>
+    
+    {% for field in form %}
+        
+    <div class="form-group">
+      <label for="{{field.html_name}}">{{field.label}}</label>
+      <input 
+      
+      {% if field.html_name == 'password1' or field.html_name == 'password2' %}
+      type="password"  {% else %}
+      type="text"         
+      {% endif %}
+          
+      
+      id="{{field.html_name}}" class="form-control" name="{{field.name}}">
+
+      {% if field.errors %}
+          {% for error in field.errors %}
+
+          <small id="helpId" class="text-warning">{{error}}</small>
+            {% endfor %}
+          {% endif %}
+          
+    </div>
+    
+    {% endfor %}
+      <div class="d-flex">      
+    <button type="submit" class="my-3 mr-5 btn btn-md btn-info">Register</button>
+    <p class="lead mt-3">Have an account?<a href="{% url 'login' %}" class="btn" style="text-decoration: none; color:yellow"> Login here</a></p>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+{% endblock content %}
